@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding = "utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+    <!-- 引入jdbc配置文件 -->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:properties/*.properties</value>
+            </list>
+        </property>
+    </bean>
+        <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
+
+
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <!-- 不使用properties来配置 -->
+        <!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" /> <property name="url" value="jdbc:mysql://localhost:3306/learning" /> <property name="username" value="root" /> <property name="password" value="christmas258@" /> -->
+        <!-- 使用properties来配置 -->
+        <property name="driverClassName">
+            <value>${driver}</value>
+        </property>
+        <property name="url">
+            <value>${url}</value>
+        </property>
+        <property name="username">
+            <value>${username}</value>
+        </property>
+        <property name="password">
+            <value>${password}</value>
+        </property>
+    </bean>
+
+    <!-- 自动扫描了所有的XxxxMapper.xml对应的mapper接口文件，这样就不用一个一个手动配置Mpper的映射了，只要Mapper接口类和Mapper映射文件对应起来就可以了。 -->
+    <!-- 如果service层定义了dao属性并打算使用@Autowired来注入实例，但不配置这个MapperScannerConfigurer的话，就会报错 --><!-- 通过mapper跟工厂来得到实例 -->
+    <!-- Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userServiceImpl': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: private com.lcq.dao.UserDao com.lcq.service.impl.UserServiceImpl.userDao; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [com.lcq.dao.UserDao] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)} -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lcq.dao" />
+    </bean>
+
+    <!-- 配置Mybatis的文件 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+        <property name="configurationProperties">
+            <props>
+                <prop key="cacheEnabled">true</prop>
+            </props>
+        </property>
+        <!-- <property name="typeAliasesPackage" value="com.tiantian.ckeditor.model" /> -->
+    </bean>
+
+    <!-- 自动扫描注解的bean -->
+    <context:component-scan base-package="com.lcq.service" />
+    <context:component-scan base-package="com.lcq.interfaces.impl" />
+    <context:component-scan base-package="com.lcq.pojo" />
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 处理文件上传 -->
+    <!-- id="multipartResolver" 属于spring文件装配时的一个属性，名称固定不能改变！！！！ -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <property name="defaultEncoding" value="utf-8"/> <!-- 默认编码 (ISO-8859-1)  -->
+        <property name="maxInMemorySize" value="10240"/> <!-- 最大内存大小 (10240) -->
+        <!--<property name="uploadTempDir" value="classpath:/WEB-INF/upload"/>--> <!-- 上传后的目录名 (WebUtils#TEMP_DIR_CONTEXT_ATTRIBUTE)  -->
+        <property name="maxUploadSize" value="-1"/><!--  最大文件大小，-1为无限止(-1) -->
+    </bean>
+
+</beans>
