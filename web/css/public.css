@@ -1,0 +1,308 @@
+a { color:#666; text-decoration: none;}
+h3, .h3 { display: block; font-size: 24px; line-height: 60px;}
+ol, ul { list-style: none; }
+button {
+ cursor: pointer;
+}
+
+ol, ul { margin: 0px; padding: 0px; }
+.w {
+ margin: 0 auto;
+ width: 793px;
+}
+.clear { clear: both; }
+ html, body, .allcon { height: 100%; }
+.allcon {
+ background: #f6f6f6;
+}
+.c-list {
+  width: 100%;
+ padding: 0;
+ margin: 0;
+ list-style: none;
+ overflow: hidden;
+ height:210px;
+}
+.c-list .list-item {
+ width: 197px;
+ border-right: 1px solid #ddd;
+ text-align: center;
+ float: left;
+ background: #fff;
+}
+.c-list .list-item:last-child { border-right: 0;}
+.c-list .p-img {
+ width:100px;
+ height: 100px;
+ margin: 0 auto;
+ margin-top: 20px;
+}
+.c-list .p-img img {
+ transition: -webkit-transform .5s ease;
+ transition: transform .5s ease;
+ transition: transform .5s ease , -webkit-transform .5s ease;
+}
+.c-list .p-img img:hover {
+ transform: scale(1.04);
+}
+.c-list .p-name {
+ display: inline-block;
+ width: 160px;
+ height:34px;
+ line-height: 34px;
+ font-size: 12px;
+ color: #666;
+ margin-top: 7px;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ white-space: nowrap;  /* 规定段落中的文本不进行换行 */
+}
+
+.c-list .p-price {
+ font-size: 16px;
+ color: #ff1b3b;
+}
+
+.c-type { color: #fff;
+ color: #dc2d2d;
+ font-size: 20px;
+ background: #fdfdfd;
+ font-weight: 100;
+ text-indent: 22.22px;
+ height: 41.1111px;
+ line-height: 41.111px;
+ box-shadow: 2.333px 2.333px 10px -3px #999;
+}
+
+
+/* 头部个人信息条 */
+#shortcut-2017 {
+  height: 30px;
+ line-height: 30px;
+ background: #e3e4e5;
+ border-bottom: solid 1px #ddd;
+}
+
+.fl {float: left;}
+#shortcut-2017 li {
+ float: left;
+ height: 30px;
+ padding: 0 2px;
+}
+
+#ttbar-mycity { padding-left: 0; }
+#shortcut-2017 li.dorpdown { z-index: 13; }
+
+.dropdown { position: relative; }
+
+ul.fr { float: right;}
+
+.color-red { color: red; }
+
+.search-m {
+ z-index: 1;
+}
+
+.search-m .form {
+ width: 400px;
+ float: left;
+}
+.search-m .button,.search-m .form {
+ outline: none;
+}
+
+
+.search-m .text {
+ left: 0;
+ padding: 4px;
+ width: 340px;
+ height: 35px;
+ border: 1px solid #f10215;
+ line-height: 35px;
+ font-size: 14px;
+ color: #989898;
+}
+.search-m .button {
+ border-radius: 0;
+ width: 50px;
+ height: 35px;
+ line-height: 35px;
+ border: none;
+ background-color: #f10215;
+ font-size: 14px;
+ color: #fff;
+}
+.search-m .button, .search-m .text {
+ outline: none;
+}
+
+#settleup .cw-icon {
+ height: 34px;
+ border: 1px solid #DFDFDF;
+ padding: 0 28px 0 19px;
+ background: #F9F9F9;
+ line-height: 34px;
+}
+
+
+.p1 {  padding: 10px 0px; }
+
+
+#settleup { float: left; margin-left: 50px; }
+
+.ato-carthover { color: #666; }
+
+.login-wrap .login-form {
+
+}
+.login-form {
+ background-color: #fbfbfb;
+ overflow: visible;
+ width: 346px;
+ margin: 60px auto;
+}
+
+.tips-wrapper {
+ background: #fff8f0;
+ width: 100%;
+ padding-top: 10px;
+ padding-bottom: 10px;
+ text-align: center;
+}
+
+.tips-wrapper .cont-wrapper {
+ display: inline-block;
+ width: 90%;
+}
+
+#content .tips-wrapper .icon-tips {
+ background: url(//misc.360buyimg.com/user/passport/1.0.0/widget/login-form-2016-1124/i/icon-tips.png);
+ display: inline-block;
+ width: 16px;
+ height: 16px;
+ vertical-align: middle;
+ margin-right: 5px;
+}
+
+.login-box {
+ width: 306px;
+ padding: 20px;
+  margin: 0px auto;
+}
+
+.login-form .msg-wrap {
+ min-height: 23px;
+ margin-top: 5px;
+ margin-bottom: 5px;
+ height: auto!important;
+}
+
+.login-form .msg-error {
+ background: #ffebeb;
+ color: #e4393c;
+ border: 1px solid #faccc6;
+ padding: 8px 10px 3px 32px;
+ line-height: 15px;
+ height: auto;
+
+}
+
+.login-form .login-box .mc {
+ overflow: visible;
+}
+
+.form .label, .form button, .form input, .form label, .form select, .form textarea {
+ float: left;
+ font-size: 12px;
+}
+
+.form .item-fore1, .form .item-fore2 {
+ border: 1px solid #bdbdbd;
+ height: 38px;
+}
+.form .item .name-label {
+ background-position: 0 0;
+}
+
+.form .item .login-label {
+ width: 38px;
+ height: 36px;
+ border-right: 1px solid #bdbdbd;
+ background: url(//misc.360buyimg.com/user/passport/1.0.0/widget/login-form-2016-1124/i/pwd-icons-new.png) no-repeat;
+}
+
+.form .itxt {
+ line-height: 36px;
+ height: 36px;
+ border: 0;
+ padding: 10px 0 10px 10px;
+ float: none;
+ overflow: hidden;
+ font-size: 14px;
+ width: 85.5555%;
+}
+.form .item {
+ position: relative;
+ margin-bottom: 20px;
+ z-index: 1;
+}
+
+.form .item-error {
+ border: 1px solid #e4393c;
+}
+
+.form .item-fore2 {
+ height: 38px;
+}
+.form .item-error .pwd-label {
+ background-position: -48px -96px;
+ border-color: #e4393c;
+}
+
+.form input[type=password] {
+ font-family: Tahoma,Helvetica,Arial;
+}
+.login-form .login-box .safe {
+ position: relative;
+ color: #666;
+ height: 15px;
+}
+ .safe .forget-pw-safe {
+ position: absolute;;
+ right: 0;
+ top: 0;
+}
+.form .item-fore5 {
+ margin-bottom: 10px;
+}
+.login-form .login-box .login-btn {
+ border: 1px solid #cb2a2d;
+ margin: 0 auto;
+ height: 32px;
+ width: 100%;
+ position: relative;
+}
+
+.login-form .login-box .login-btn .btn-img {
+ border: 1px solid #e85356;
+ display: block;
+ background: #e4393c;
+ height: 31px;
+ line-height: 31px;
+ color: #fff;
+ font-size: 16px;
+}
+
+.btn-img, .button {
+ display: inline-block;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ text-align: center;
+ cursor: pointer;
+}
+
+
+.form .item .pwd-label {
+ background-position: -48px 0px;
+}

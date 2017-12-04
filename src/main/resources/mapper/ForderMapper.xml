@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.dao.ForderDao">
+    <insert id="save" parameterType="com.lcq.dao.ForderDao" useGeneratedKeys="true" keyProperty="id">
+        insert into forder (name, phone, remark, date, total, post, address, sid, uid)
+                values ( #{name}, #{phone}, #{remark}, #{date}, #{total}, #{post}, #{address}, #{status.id}, #{user.id} );
+    </insert>
+</mapper>

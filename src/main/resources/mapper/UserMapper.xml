@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.dao.UserDao">
+<!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！-->
+<resultMap id="BaseResultMap" type="com.lcq.domain.User">
+    <id column="USER_ID" property="id"  />
+    <result column="USER_NAME" property="username" />
+    <result column="USER_PASSWORD" property="password" />
+</resultMap>
+<!-- 查询单条记录 -->
+<select id="selectUserById" parameterType="int" resultMap="BaseResultMap">
+    SELECT * FROM t_user WHERE USER_ID = #{userId}
+</select>
+
+ <!-- 修改用户的信息 -->
+    <update id="updateUserInfo" parameterType="com.lcq.domain.User">
+        update t_user set USER_NAME = #{username}, USER_PASSWORD = #{password} where USER_ID = #{id}
+    </update>
+
+    <!-- 根据接口的规则来编写 -->
+    <select id = "get" parameterType="int" resultMap = "BaseResultMap">
+        SELECT * FROM t_user WHERE USER_ID = #{userId}
+    </select>
+
+    <!-- 登录 -->
+    <select id = "login" parameterType="com.lcq.domain.User" resultType="com.lcq.domain.User">
+        select * from user where login = #{login} and pass = #{password};
+    </select>
+
+</mapper>

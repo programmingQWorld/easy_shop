@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.dao.ProductDao">
+
+    <resultMap id="productMap" type="com.lcq.domain.Product">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property = "price" column="price" />
+        <result property = "pic" column="pic" />
+        <result property = "remark" column="remark" />
+        <result property = "xremark" column="xremark" />
+        <result property = "date" column="date" />
+        <result property = "commend" column="commend" />
+        <result property = "open" column="open" />
+
+        <association property="category" column="cid" javaType="com.lcq.domain.Category">
+            <id column="cid" property="id" />
+            <result column="type" property="type" />
+            <result column="hot" property="hot" />
+        </association>
+    </resultMap>
+
+    <!-- 根据商品的名称完成物理分页查询 -->
+    <select id = "queryProductJoinCategoryForPage" parameterType = "Map" resultMap = "productMap">
+        select * from product
+        left join category on cid = category.id
+        where name like '%' #{name} '%'
+        <if test = "offset != null and pagesize != null" >
+            limit #{offset}, #{pagesize}
+        </if>
+       /* select * from product left join category on cid = category.id where name like '%';*/
+    </select>
+
+    <!-- 根据商品的id删除商品信息，可单删或多删 -->
+    <delete id="deleteProducts" parameterType="list">
+        <if test = "list != null">
+            delete from product where id in (
+            <foreach item="id" collection="list" separator=",">#{id}</foreach>
+            )
+        </if>
+    </delete>
+
+    <!-- 保存商品 -->
+    <insert id = "saveProduct" parameterType = "com.lcq.domain.Product">
+        insert into product (name, price, pic, remark, xremark, date, commend, open, cid) values
+            (#{name}, #{price}, #{pic}, #{remark}, #{xremark}, #{date}, #{commend}, #{open}, #{category.id});
+    </insert>
+
+    <!-- 修改商品 -->
+    <update id = "updateProduct" parameterType = "com.lcq.domain.Product">
+        update product set  name=#{name}, price=#{price}, pic=#{pic}, remark=#{remark}, xremark=#{xremark}, date=#{date}, commend=#{commend}, open=#{open}, cid=#{category.id}
+        where id = #{id}
+    </update>
+
+    <!-- 根据类别id查询商品信息 -->
+    <select id = "queryByCategoryId" parameterType="long" resultMap="productMap">
+        select * from product
+            left join category on cid = category.id
+        where commend = 1 and open = 1 and cid = #{id}
+    </select>
+
+    <!-- 根据商品id查询商品信息 -->
+    <select id = "get" parameterType="int" resultMap="productMap">
+        select * from product left join category on cid = category.id where product.id = #{pid};
+    </select>
+</mapper>

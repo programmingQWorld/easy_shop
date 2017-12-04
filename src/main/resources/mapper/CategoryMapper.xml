@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.dao.CategoryDao">
+
+    <resultMap id = "categoryMap" type="com.lcq.domain.Category" >
+        <id property="id" column="id" />
+        <result  property="type" column="type" />
+        <result  property="hot" column="hot" />
+        <!-- 配置单实体映射[外键关联] -->
+        <!--<association property = "card" column = "card_id" select = "selectCardById" javaType = "com.lcq.domain.Card" />-->
+        <!-- select属性查询的使另外一个命名空间的statement_id -->
+        <association property="account" javaType="com.lcq.domain.Account" >
+            <id column="account_id" property="id" />
+            <result column="login" property="login" />
+            <result column="name" property="name" />
+            <result column="pass" property="pass" />
+        </association>
+    </resultMap>
+
+    <!--  根据类名查询类别-->
+    <select id = "queryJoinAccount" parameterType = "String" resultMap="categoryMap">
+        select * from category
+        LEFT JOIN account on account_id = account.id
+        where type like '%' #{type} '%';   /* concat('%', #{type}, '%') */
+    </select>
+
+    <!-- 完成物理分页查询 -->
+    <select id = "queryJoinAccountForPage" parameterType = "Map" resultMap = "categoryMap">
+        select * from category
+        left join account on account_id = account.id
+        where type like '%' #{type} '%'
+       <if test = "offset != null and pagesize != null" >
+            limit #{offset}, #{pagesize}
+        </if>
+    </select>
+
+    <!-- 获取本表的记录总数 -->
+    <select id = "getCount" parameterType="String" resultType="int">
+        select count(*) from category where type like '%' #{type} '%';
+    </select>
+
+    <!-- 根据id 删除1条或多条商品类别信息 -->
+    <delete id = "deleteCategoryByIds" parameterType="int">
+
+        <if test = "list != null">
+            delete from category where id in (
+            <foreach item="id" collection="list" separator=",">#{id}</foreach>
+            )
+        </if>
+    </delete>
+
+    <!-- 保存商品类别信息 -->
+    <insert id="save" parameterType="com.lcq.domain.Category">
+        insert into category (type, hot, account_id) values (#{type}, #{hot}, #{account.id})
+    </insert>
+
+    <!-- 修改商品类别信息 -->
+    <update id = "update" parameterType="com.lcq.domain.Category">
+        update category set type = #{type}, hot = #{hot}, account_id = #{account.id} where id = #{id}
+    </update>
+
+    <!-- 查询category中所有的记录 -->
+    <select id = "getCategories" resultType="com.lcq.domain.Category">
+        select * from category;
+    </select>
+
+    <!-- 根据热点来查找商品类别 -->
+    <select id = "queryByHot" parameterType="boolean" resultType = "com.lcq.domain.Category">
+        select * from category where category.hot = #{hot}
+    </select>
+    <!--<cache readOnly = "true" flushInterval = "36000000" size = "512" eviction = "FIFO" />-->
+</mapper>
